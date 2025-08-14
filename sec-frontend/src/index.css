@@ -1,0 +1,17 @@
+/* Di chuyển các class ra khỏi @layer components */
+
+.form-input {
+  @apply mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+  focus:outline-none focus:border-[#441da0] focus:ring-1 focus:ring-[#441da0];
+}
+.form-checkbox {
+  @apply rounded border-gray-300 text-[#441da0] shadow-sm focus:border-[#441da0] focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50;
+}
+.form-radio {
+  @apply rounded-full border-gray-300 text-[#441da0] shadow-sm focus:border-[#441da0] focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50;
+}
+
+/* Các chỉ thị @tailwind giữ nguyên ở dưới cùng */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,31 @@
+CREATE DATABASE recruitment;
+
+USE recruitment;
+
+CREATE TABLE Users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role ENUM('candidate', 'employer') NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Jobs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  employerId INT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (employerId) REFERENCES Users(id)
+);
+
+CREATE TABLE Applications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cvText TEXT NOT NULL,
+  candidateId INT NOT NULL,
+  jobId INT NOT NULL,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (candidateId) REFERENCES Users(id),
+  FOREIGN KEY (jobId) REFERENCES Jobs(id)
+);

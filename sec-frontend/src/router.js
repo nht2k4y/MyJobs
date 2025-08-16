@@ -68,11 +68,11 @@ export default function AppRouter() {
                     }
                 >
                     <Route index element={<JobSeekerDashboard />} />
-                    <Route path="ho-so" element={<JobSeekerProfile />} />
-                    <Route path="viec-lam" element={<MyJobsPage />} />
-                    <Route path="cong-ty" element={<MyCompaniesPage />} />
-                    <Route path="thong-bao" element={<NotificationsPage />} />
-                    <Route path="cai-dat" element={<SettingsPage />} />
+                    <Route path="profile" element={<JobSeekerProfile />} />
+                    <Route path="myjobs" element={<MyJobsPage />} />
+                    <Route path="mycompanies" element={<MyCompaniesPage />} />
+                    <Route path="notifications" element={<NotificationsPage />} />
+                    <Route path="settings" element={<SettingsPage />} />
                 </Route>
 
             </Route>

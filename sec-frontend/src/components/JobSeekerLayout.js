@@ -37,11 +37,11 @@ export default function JobSeekerLayout() {
                   SỬA LỖI: Cập nhật tất cả các đường dẫn 'to' để bắt đầu bằng /my-profile
                 */}
                 <NavTab to="/my-profile" icon={<FaUserCircle />} label="MY MYJOB" />
-                <NavTab to="/my-profile/ho-so" icon={<FaFileContract />} label="Hồ sơ xin việc" />
-                <NavTab to="/my-profile/viec-lam" icon={<FaBriefcase />} label="Việc làm của tôi" />
-                <NavTab to="/my-profile/cong-ty" icon={<FaBuilding />} label="Công ty của tôi" />
-                <NavTab to="/my-profile/thong-bao" icon={<FaBell />} label="MyJob Thông báo" />
-                <NavTab to="/my-profile/cai-dat" icon={<FaCog />} label="Tài khoản & Cài đặt" />
+                <NavTab to="/my-profile/profile" icon={<FaFileContract />} label="Hồ sơ xin việc" />
+                <NavTab to="/my-profile/myjobs" icon={<FaBriefcase />} label="Việc làm của tôi" />
+                <NavTab to="/my-profile/mycompanies" icon={<FaBuilding />} label="Công ty của tôi" />
+                <NavTab to="/my-profile/notifications" icon={<FaBell />} label="MyJob Thông báo" />
+                <NavTab to="/my-profile/settings" icon={<FaCog />} label="Tài khoản & Cài đặt" />
             </nav>
 
             {/* Vùng hiển thị nội dung chính */}

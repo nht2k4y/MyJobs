@@ -24,6 +24,7 @@ class User(Base):
     created_at = Column(DateTime, default=func.now())
     phone_number = Column(String(20), unique=True, nullable=True)
     avatar_filename = Column(String(255), nullable=True)
+    saved_jobs = relationship("SavedJob")
 
     @property
     def avatar_url(self) -> Optional[str]:
@@ -320,3 +321,22 @@ class TechnicalSkill(Base):
     skill_name = Column(String(100), nullable=False)
     proficiency_level = Column(Integer, nullable=False)
     profile = relationship("JobSeekerProfile", back_populates="technical_skills")
+
+# ===============================
+# VIỆC LÀM ĐÃ LƯU CỦA NGƯỜI TÌM VIỆC
+# ===============================
+class SavedJob(Base):
+    __tablename__ = "saved_jobs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    job_post_id = Column(Integer, ForeignKey("job_posts.id"), nullable=False)
+    saved_at = Column(DateTime, default=func.now())
+
+    # Mối quan hệ để truy cập thông tin User và JobPost từ một SavedJob
+    user = relationship("User")
+    job_post = relationship("JobPost")
+
+# Đồng thời, thêm mối quan hệ ngược lại vào class User
+# Tìm đến class User ở đầu file và thêm dòng này vào
+# User.saved_jobs = relationship("SavedJob", back_populates="user")

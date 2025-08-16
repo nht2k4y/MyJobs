@@ -24,7 +24,7 @@ const JobCard = ({ job }) => (
                 <p className="text-gray-600 font-medium mb-3">{job.poster_name || "Tên công ty"}</p>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500">
                     <div className="flex items-center gap-1.5"><FaDollarSign /><span>{job.salary || 'Thương lượng'}</span></div>
-                    <div className="flex items-center gap-1.5"><FaMapMarkerAlt /><span>{job.location || 'Nhiều nơi'}</span></div>
+                    <div className="flex items-center gap-1.5"><FaMapMarkerAlt /><span>{job.location?.name || 'Nhiều nơi'}</span></div>
                     <div className="flex items-center gap-1.5"><FaRegCalendarAlt /><span>{new Date(job.created_at).toLocaleDateString('vi-VN')}</span></div>
                 </div>
             </div>

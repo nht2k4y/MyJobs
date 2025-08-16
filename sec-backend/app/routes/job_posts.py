@@ -90,7 +90,8 @@ def get_approved_job_posts(db: Session = Depends(get_db)):
     Sử dụng Pydantic response_model để tự động validate và serialize dữ liệu.
     """
     posts = db.query(models.JobPost).options(
-        joinedload(models.JobPost.employer).joinedload(models.User.company_info)
+        joinedload(models.JobPost.employer).joinedload(models.User.company_info),
+        joinedload(models.JobPost.location)
     ).filter(models.JobPost.status == "approved").order_by(models.JobPost.created_at.desc()).all()
 
     # Pydantic sẽ tự động xử lý việc chuyển đổi từ model SQLAlchemy sang JSON

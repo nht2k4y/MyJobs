@@ -12,6 +12,7 @@ import ApplicationManager from '../pages/employee/ApplicationManager';
 import Dashboard from '../pages/employee/Dashboard';
 import CompanyInfo from '../pages/employee/CompanyInfo';
 import SavedProfiles from '../pages/employee/SavedProfiles';
+import FindCandidates from '../pages/employee/FindCandidates';
 
 // --- GIAO DIỆN CỦA SidebarButton ĐÃ ĐƯỢC CẬP NHẬT ---
 const SidebarButton = ({ text, icon: Icon, onClick, isActive }) => (
@@ -65,6 +66,8 @@ export default function EmployerLayout() {
         return <CompanyInfo />;
       case 'saved-profiles':
         return <SavedProfiles />;
+      case 'find-candidates':
+        return <FindCandidates />;
       default:
         return <Dashboard />;
     }
@@ -95,7 +98,12 @@ export default function EmployerLayout() {
           <li className="font-semibold text-indigo-300 text-xs uppercase tracking-wider mt-4 mb-2 px-4">Quản lý ứng viên</li>
           <SidebarButton text="Hồ sơ ứng tuyển" icon={FaUserCheck} onClick={() => navigateToPage('applications')} isActive={currentPage === 'applications'} />
           <SidebarButton text="Hồ sơ đã lưu" icon={FaFileAlt} onClick={() => navigateToPage('saved-profiles')} isActive={currentPage === 'saved-profiles'} />
-          <DisabledSidebarButton text="Tìm ứng viên" icon={FaSearch} />
+          <SidebarButton 
+              text="Tìm ứng viên" 
+              icon={FaSearch} 
+              onClick={() => navigateToPage('find-candidates')} 
+              isActive={currentPage === 'find-candidates'} 
+          />
           
           {/* Nhóm 4 */}
           <li className="font-semibold text-indigo-300 text-xs uppercase tracking-wider mt-4 mb-2 px-4">Quản lý tài khoản</li>

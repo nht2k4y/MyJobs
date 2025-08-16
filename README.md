@@ -1,61 +1,121 @@
-# 🌐 Tuyển dụng AI — Nền tảng tuyển dụng ứng dụng Trí tuệ Nhân tạo
+# 🌐 Tuyển dụng AI (MyJob)
 
-**Tuyển dụng AI** là một nền tảng tuyển dụng thông minh, nơi nhà tuyển dụng và người tìm việc có thể kết nối, đăng bài, tìm kiếm việc làm và được hỗ trợ bởi chatbot AI. Dự án được xây dựng với mục tiêu đơn giản hóa quá trình tuyển dụng thông qua công nghệ hiện đại.
+Một nền tảng tuyển dụng thông minh, ứng dụng Trí tuệ Nhân tạo để kết nối Nhà tuyển dụng và Người tìm việc một cách hiệu quả.
 
-## 🚀 Tính năng chính
-
-### 👨‍💼 Đối với nhà tuyển dụng:
-- Đăng ký / Đăng nhập và phân quyền theo vai trò
-- Đăng bài tuyển dụng (tiêu đề, vị trí, mô tả)
-- Chỉnh sửa, xoá bài đã đăng
-- Quản lý bài viết tại `/manage-jobs`
-- Quản lý người ứng tuyển
-
-### 👩‍💻 Đối với người tìm việc:
-- Đăng ký / Đăng nhập và phân quyền theo vai trò
-- Xem danh sách các công việc tại `/jobs`
-- Click vào tiêu đề để xem chi tiết bài đăng
-- ấn ứng tuyển sẽ gửi info về cho nhà tuyển dụng
-
-### 🤖 AI Chatbot hỗ trợ:
-- Gợi ý công việc phù hợp từ MySQL
-- Hỗ trợ xử lý CV và trả lời câu hỏi nhanh
-
-## 🛠️ Công nghệ sử dụng
-
-| Phần      | Công nghệ     |
-|-----------|---------------|
-| Backend   | FastAPI(Python), SQLAlchemy |
-| Cơ sở dữ liệu | MySQL |
-| Frontend  | React.js, Tailwind CSS |
-| AI Chatbot | (tuỳ chọn) GPT tích hợp phản hồi từ MySQL |
-| Authentication | JWT |
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
-## ⚙️ Cài đặt & chạy
+## Demo & Giao diện
 
-### 1. Clone dự án
+*(Ghi chú: Hãy thay thế bằng ảnh GIF hoặc ảnh chụp màn hình đẹp nhất của dự án)*
 
+![Ảnh GIF demo dự án](https://link-toi-anh-gif-cua-ban.gif)
+
+---
+
+## 📖 Mục lục
+
+- [Giới thiệu](#-giới-thiệu-dự-án)
+- [Tính năng chính](#-tính-năng-chính)
+- [Công nghệ sử dụng](#-công-nghệ-sử-dụng)
+- [Hướng dẫn cài đặt](#-hướng-dẫn-cài-đặt)
+- [Cấu trúc dự án](#-cấu-trúc-dự-án)
+- [Lộ trình phát triển](#-lộ-trình-phát-triển)
+
+---
+
+## 🌟 Giới thiệu dự án
+
+**Tuyển dụng AI (MyJob)** được xây dựng để đơn giản hóa và tối ưu hóa quá trình tuyển dụng. Dự án giải quyết các thách thức trong tuyển dụng truyền thống bằng cách ứng dụng Trí tuệ Nhân tạo (AI) để nâng cao hiệu quả tìm kiếm, sàng lọc và tương tác, mang lại trải nghiệm tốt nhất cho cả hai bên.
+
+---
+
+## ✨ Tính năng chính
+
+### 👨‍💼 Đối với Nhà tuyển dụng:
+- **📊 Dashboard quản lý:** Giao diện quản trị trực quan để theo dõi tin đăng, số lượng ứng viên và các thống kê quan trọng.
+- **📝 Quản lý tin tuyển dụng:** Dễ dàng đăng tải, chỉnh sửa, và xóa các bài đăng.
+- **📂 Quản lý ứng viên:** Tiếp cận và quản lý thông tin của các ứng viên đã ứng tuyển vào vị trí.
+
+### 👩‍💻 Đối với Người tìm việc:
+- **🔍 Tìm kiếm thông minh:** Tìm kiếm và lọc công việc theo ngành nghề, vị trí, khu vực.
+- **📄 Quản lý hồ sơ chuyên nghiệp:** Xây dựng một hồ sơ chi tiết (kinh nghiệm, học vấn, kỹ năng) để thu hút nhà tuyển dụng.
+- **🚀 Ứng tuyển nhanh chóng:** Nộp hồ sơ trực tiếp trên nền tảng chỉ với vài cú nhấp chuột.
+
+### 🤖 Trợ lý AI Chatbot:
+- **💬 Hỗ trợ 24/7:** Giải đáp thắc mắc và gợi ý các công việc phù hợp.
+- **🔬 Phân tích & Gợi ý CV:** (Dự kiến) Hỗ trợ phân tích CV và đưa ra đề xuất cải thiện.
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+| Phần | Công nghệ |
+| :--- | :--- |
+| **Backend** | `FastAPI (Python)`, `SQLAlchemy` |
+| **Frontend** | `React.js`, `Tailwind CSS` |
+| **Cơ sở dữ liệu** | `MySQL` |
+| **Xác thực** | `JWT (JSON Web Tokens)` |
+
+---
+
+## 🚀 Hướng dẫn cài đặt
+
+### 1. Yêu cầu tiên quyết
+- Git
+- Python 3.8+
+- Node.js 16+ & npm
+- MySQL Server
+
+### 2. Cài đặt Backend (FastAPI)
 ```bash
+# Clone repository
 git clone https://github.com/tenban/tuyen-dung-ai.git
-cd tuyen-dung-ai
+cd tuyen-dung-ai/sec-backend
 
-cài đặt backend:
-
-cd sec-backend
+# Tạo và kích hoạt môi trường ảo
 python -m venv .venv
-.venv\Scripts\activate  # hoặc source .venv/bin/activate trên macOS/Linux
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
+
+# Cài đặt thư viện
 pip install -r requirements.txt
+
+# Cấu hình file .env (sao chép từ .env.example)
+# và điền thông tin kết nối database
+
+# Chạy server
 uvicorn app.main:app --reload
 
-cài đặt frontend:
+3. Cài đặt Frontend (React)
 
-cd client
+# Từ thư mục gốc, đi tới thư mục frontend
+cd ../sec-frontend
+
+# Cài đặt các gói
 npm install
+
+# Chạy ứng dụng
 npm start
-"# TestCode" 
-"# TestCode" 
-"# MyJobs" 
-"# MyJobs" 
-"# MyJobs" 
+
+###📁 Cấu trúc dự án
+
+.
+├── sec-backend/         # Toàn bộ mã nguồn Backend FastAPI
+│   ├── app/
+│   ├── static/
+│   └── ...
+├── sec-frontend/        # Toàn bộ mã nguồn Frontend React
+│   ├── src/
+│   └── ...
+└── README.md
+
+
+###🗺️ Lộ trình phát triển
+
+Dự án vẫn đang trong quá trình phát triển với các tính năng dự kiến:
+- [ ] **Hệ thống Gợi ý (Recommendation System):** Tự động gợi ý việc làm/ứng viên phù hợp.
+- [ ] **Tìm kiếm Ngữ nghĩa (Semantic Search):** Tìm kiếm bằng ngôn ngữ tự nhiên.
+- [ ] **Hoàn thiện Chatbot AI:** Nâng cao khả năng phân tích CV và tương tác.
+- [ ] **Triển khai (Deploy):** Đưa ứng dụng lên môi trường production.

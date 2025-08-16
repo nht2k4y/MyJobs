@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { FaSpinner, FaEdit, FaPlus, FaTrash, FaTimes, FaStar, FaUpload, FaSearch, FaDownload } from 'react-icons/fa';
+import { FaSpinner, FaEdit, FaPlus, FaTrash, FaTimes, FaStar, FaUpload, FaSearch, FaDownload, FaFileAlt, FaBriefcase, FaUserTie, FaDollarSign, FaRegCalendarAlt, FaExclamationTriangle } from 'react-icons/fa';
 
 // Giả định các file form này đã được tạo trong thư mục `src/components/forms/`
 // Nếu đường dẫn khác, bạn vui lòng sửa lại cho đúng.
@@ -95,51 +95,78 @@ const InfoItem = ({ label, value }) => (
     </div>
 );
 
-const CVCard = ({ cv, onDelete }) => (
-    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col bg-white">
-        {/* Phần Thumbnail */}
-        <div className="h-48 bg-gray-200 flex items-center justify-center relative group">
-            {/* Sử dụng ảnh placeholder. Khi có backend, bạn sẽ thay bằng cv.thumbnail_url */}
-            <img 
-                src={cv.thumbnail_url ? `http://localhost:8000${cv.thumbnail_url}` : '/cv-thumbnail-placeholder.png'} 
-                alt="CV preview" 
-                className="object-contain w-full h-full p-2"
-            />
-            {/* Lớp phủ khi hover */}
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center">
-                 <button className="text-white font-bold px-4 py-2 rounded-md bg-myjob-purple opacity-0 group-hover:opacity-100 transition-opacity">Xem chi tiết</button>
+const CVCard = ({ cv, onDelete }) => {
+    // THAY ĐỔI 1: Xây dựng URL đến file PDF thực tế
+    // Giả định server của bạn phục vụ file CV tại /static/uploaded_cvs/
+    // và object 'cv' có thuộc tính 'cv_filename'
+    const cvUrl = cv.cv_filename 
+        ? `http://localhost:8000/static/uploaded_cvs/${cv.cv_filename}`
+        : null;
+
+    return (
+        <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col bg-white">
+            {/* Phần Thumbnail */}
+            <div className="h-56 bg-gray-100 flex items-center justify-center relative group">
+                
+                {/* THAY ĐỔI 2: Thay thế <img> bằng <iframe> để hiển thị PDF */}
+                {cvUrl ? (
+                    <iframe
+                        src={`${cvUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                        title={cv.desired_position || 'CV Preview'}
+                        className="w-full h-full border-0"
+                        // Thuộc tính không chuẩn nhưng hữu ích trên một số trình duyệt
+                        scrolling="no" 
+                    >
+                        <p>Trình duyệt của bạn không hỗ trợ xem PDF. <a href={cvUrl}>Tải xuống tại đây</a>.</p>
+                    </iframe>
+                ) : (
+                    // Fallback nếu không có file CV
+                    <div className="text-center text-gray-500">
+                        <FaFileAlt className="text-4xl mx-auto mb-2" />
+                        <p>Không có ảnh xem trước</p>
+                    </div>
+                )}
+                
+                {/* Lớp phủ khi hover (giữ nguyên) */}
+                {cvUrl && (
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center">
+                        <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="text-white font-bold px-4 py-2 rounded-md bg-myjob-purple opacity-0 group-hover:opacity-100 transition-opacity">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                )}
+                 
+                 {/* Nút toggle (giữ nguyên) */}
+                <div className="absolute top-2 right-2">
+                    <button className="text-xs bg-white/80 backdrop-blur-sm text-gray-800 px-2 py-1 rounded-full flex items-center gap-1 shadow">
+                        <FaSearch size={10} />
+                        <span>Cho phép tìm kiếm</span>
+                    </button>
+                </div>
             </div>
-             {/* Nút toggle */}
-            <div className="absolute top-2 right-2">
-                <button className="text-xs bg-white/80 backdrop-blur-sm text-gray-800 px-2 py-1 rounded-full flex items-center gap-1 shadow">
-                    <FaSearch size={10} />
-                    <span>Cho phép tìm kiếm</span>
+
+            {/* Phần Nội dung (giữ nguyên) */}
+            <div className="p-4 flex-grow border-t">
+                <h4 className="font-bold text-gray-800 truncate" title={cv.desired_position || 'Hồ sơ chung'}>
+                    {cv.desired_position || 'Hồ sơ chung'}
+                </h4>
+                <p className="text-sm text-gray-500">Cập nhật lần cuối: {new Date(cv.updated_at).toLocaleDateString('vi-VN')}</p>
+            </div>
+
+            {/* Phần Chân trang (Footer) - Cập nhật nút Tải xuống */}
+            <div className="px-4 py-2 bg-gray-50 border-t flex justify-between items-center">
+                <a href={cvUrl} download className="text-sm font-semibold text-myjob-purple flex items-center gap-1.5 hover:underline">
+                    <FaDownload />
+                    <span>Tải xuống</span>
+                </a>
+                <button onClick={() => onDelete(cv.id)} className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-100">
+                    <FaTrash />
                 </button>
             </div>
         </div>
+    );
+};
 
-        {/* Phần Nội dung */}
-        <div className="p-4 flex-grow border-t">
-            <h4 className="font-bold text-gray-800 truncate" title={cv.desired_position || 'Hồ sơ chung'}>
-                {cv.desired_position || 'Hồ sơ chung'}
-            </h4>
-            <p className="text-sm text-gray-500">Cập nhật lần cuối: {new Date(cv.updated_at).toLocaleDateString('vi-VN')}</p>
-        </div>
-
-        {/* Phần Chân trang (Footer) */}
-        <div className="px-4 py-2 bg-gray-50 border-t flex justify-between items-center">
-            <button className="text-sm font-semibold text-myjob-purple flex items-center gap-1.5 hover:underline">
-                <FaDownload />
-                <span>Tải xuống</span>
-            </button>
-            <button onClick={() => onDelete(cv.id)} className="text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-100">
-                <FaTrash />
-            </button>
-        </div>
-    </div>
-);
-
-// =======================================
 // === COMPONENT CHÍNH CỦA TRANG PROFILE ===
 // =======================================
 export default function JobSeekerProfile() {
@@ -168,6 +195,7 @@ export default function JobSeekerProfile() {
     const handleOpenModal = (type, title, data = null) => setModalState({ isOpen: true, type, data, title });
     const handleCloseModal = () => setModalState({ isOpen: false });
 
+    // --- CÁC HÀM handleSave và handleDelete GIỮ NGUYÊN ---
     const handleSave = async (formData) => {
         setIsSubmitting(true);
         const { type, data } = modalState;
@@ -245,8 +273,7 @@ export default function JobSeekerProfile() {
             certificate: { name: 'chứng chỉ', endpoint: 'certificates' },
             languageSkill: { name: 'kỹ năng ngôn ngữ', endpoint: 'language-skills' },
             technicalSkill: { name: 'kỹ năng chuyên môn', endpoint: 'technical-skills' },
-            uploadedCV: { name: 'hồ sơ', endpoint: 'uploaded-cvs'} // Giả định endpoint
-            
+            uploadedCV: { name: 'hồ sơ', endpoint: 'uploaded-cvs'}
         };
         const itemInfo = typeMap[type];
         if (!itemInfo) return;
@@ -271,23 +298,53 @@ export default function JobSeekerProfile() {
         return <div className="p-8 text-center"><FaSpinner className="animate-spin inline mr-2" /> Đang tải hồ sơ...</div>;
     }
 
+    // --- PHẦN RETURN ĐÃ SỬA LẠI HOÀN CHỈNH ---
     return (
         <>
             {!isEditMode ? (
                 // --- GIAO DIỆN CHẾ ĐỘ XEM (SUMMARY VIEW) ---
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {/* === CỘT BÊN TRÁI (NỘI DUNG CHÍNH) === */}
                     <div className="lg:col-span-2 space-y-8">
+                        
+                        {/* === ĐÂY LÀ KHỐI MỚI ĐÃ SỬA THEO MẪU === */}
                         <div className="bg-white p-6 rounded-lg shadow-md">
-                            <div className="flex justify-between items-center mb-4"><h2 className="text-2xl font-bold">MyJob Profile</h2><div><span className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full mr-2">Cho phép tìm kiếm</span><span className="text-sm bg-orange-100 text-orange-700 px-3 py-1 rounded-full cursor-pointer">Tải xuống</span></div></div>
-                            <div className="flex items-center gap-6"><img src={profile.user?.avatar_url ? `http://localhost:8000${profile.user.avatar_url}` : '/default-avatar.png'} alt="avatar" className="w-24 h-24 rounded-full object-cover"/><div className="space-y-1"><h3 className="text-xl font-bold">{profile.user?.name || 'Chưa cập nhật'}</h3><p className="text-sm text-gray-500">Vị trí: {profile.desired_position || 'Chưa cập nhật'}</p><p className="text-sm text-gray-500">Kinh nghiệm: {profile.experience_years || 'Chưa cập nhật'}</p><p className="text-sm text-gray-500">Cấp bậc: {profile.desired_level || 'Chưa cập nhật'}</p><p className="text-sm text-gray-500">Mức lương: {(profile.min_salary && profile.max_salary) ? `${profile.min_salary.toLocaleString('vi-VN')} - ${profile.max_salary.toLocaleString('vi-VN')} VND` : 'Thương lượng'}</p><p className="text-xs text-gray-400">Ngày cập nhật: {new Date(profile.updated_at).toLocaleString('vi-VN')}</p></div></div>
-                            <div className="mt-4 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-r-md">Vui lòng thêm tất cả các thông tin cần thiết để hoàn thành hồ sơ của bạn.</div>
-                            <div className="mt-6"><button onClick={() => setIsEditMode(true)} className="bg-myjob-purple text-white font-bold px-6 py-2.5 rounded-md hover:opacity-90 flex items-center gap-2"><FaEdit /> Chỉnh sửa hồ sơ</button></div>
+                            <div className="flex justify-between items-center mb-6 pb-4 border-b">
+                                <h2 className="text-xl font-bold text-gray-800">MyJob Profile</h2>
+                                <div className="flex items-center gap-4">
+                                    <button className="flex items-center gap-2 text-sm bg-green-100 text-green-700 font-semibold px-3 py-1.5 rounded-full hover:bg-green-200 transition">
+                                        <FaStar /><span>Cho phép tìm kiếm</span>
+                                    </button>
+                                    <button className="flex items-center gap-2 text-sm bg-orange-100 text-orange-600 font-semibold px-3 py-1.5 rounded-full hover:bg-orange-200 transition">
+                                        <FaDownload /><span>Tải xuống</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <img src={profile.user?.avatar_url ? `http://localhost:8000${profile.user.avatar_url}` : '/default-avatar.png'} alt="avatar" className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-lg" />
+                                <div className="space-y-2">
+                                    <h3 className="text-2xl font-bold text-gray-900 uppercase">{profile.user?.name || 'Chưa cập nhật'}</h3>
+                                    <p className="text-md text-gray-600 font-medium">{profile.desired_position || 'Chưa cập nhật vị trí'}</p>
+                                    <div className="pt-2 space-y-1.5 text-sm">
+                                        <p className="flex items-center"><FaBriefcase className="text-gray-400 w-4 h-4 mr-3" /><span className="text-gray-500">Kinh nghiệm:</span><span className="font-semibold text-gray-800 ml-2">{profile.experience_years || 'Chưa cập nhật'}</span></p>
+                                        <p className="flex items-center"><FaUserTie className="text-gray-400 w-4 h-4 mr-3" /><span className="text-gray-500">Cấp bậc:</span><span className="font-semibold text-gray-800 ml-2">{profile.desired_level || 'Chưa cập nhật'}</span></p>
+                                        <p className="flex items-center"><FaDollarSign className="text-gray-400 w-4 h-4 mr-3" /><span className="text-gray-500">Mức lương mong muốn:</span><span className="font-semibold text-gray-800 ml-2">{(profile.min_salary && profile.max_salary) ? `${profile.min_salary.toLocaleString('vi-VN')} - ${profile.max_salary.toLocaleString('vi-VN')} VND` : 'Thương lượng'}</span></p>
+                                        <p className="flex items-center"><FaRegCalendarAlt className="text-gray-400 w-4 h-4 mr-3" /><span className="text-gray-500">Ngày cập nhật:</span><span className="font-semibold text-gray-800 ml-2">{new Date(profile.updated_at).toLocaleString('vi-VN')}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mt-6 p-3 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 text-sm rounded-r-md flex items-center gap-2"><FaExclamationTriangle /><span>Vui lòng thêm tất cả các thông tin cần thiết để hoàn thành hồ sơ của bạn.</span></div>
+                            <div className="mt-6 flex items-center gap-4">
+                                <button onClick={() => setIsEditMode(true)} className="bg-myjob-purple text-white font-bold px-6 py-2.5 rounded-md hover:opacity-90 flex items-center gap-2 shadow-lg shadow-myjob-purple/30"><FaEdit /> Chỉnh sửa hồ sơ</button>
+                                <button className="border-2 border-gray-300 text-gray-500 font-bold px-3 py-2.5 rounded-md hover:bg-gray-100">D</button>
+                            </div>
                         </div>
+
+                        {/* === PHẦN BỊ MẤT ĐÃ ĐƯỢC KHÔI PHỤC: HỒ SƠ ĐÍNH KÈM === */}
                         <div className="bg-white p-6 rounded-lg shadow-md">
                             <h2 className="text-xl font-bold mb-4">Hồ sơ đính kèm ({profile.uploaded_cvs?.length || 0})</h2>
                             {profile.uploaded_cvs?.length > 0 ? (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                                    {/* Component CVCard mới sẽ được render ở đây */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                                     {profile.uploaded_cvs.map(cv => <CVCard key={cv.id} cv={cv} onDelete={(id) => handleDelete('uploadedCV', id)} />)}
                                 </div>
                             ) : (
@@ -297,8 +354,18 @@ export default function JobSeekerProfile() {
                                 <FaUpload /> UPLOAD CV
                             </button>
                         </div>
+
                     </div>
-                    <div className="lg:col-span-1"><div className="bg-white p-6 rounded-lg shadow-md text-center"><h3 className="text-lg font-bold mb-4">Ai đã xem hồ sơ của bạn</h3><img src="/illustration-view.svg" alt="illustration" className="mx-auto mb-4 h-32"/><p className="text-sm text-gray-500 mb-4">Chưa có nhà tuyển dụng nào xem hồ sơ của bạn</p><button className="text-myjob-purple font-semibold text-sm">Xem chi tiết</button></div></div>
+
+                    {/* === CỘT BÊN PHẢI (SIDEBAR) ĐÃ ĐƯỢC KHÔI PHỤC === */}
+                    <div className="lg:col-span-1">
+                        <div className="bg-white p-6 rounded-lg shadow-md text-center">
+                            <h3 className="text-lg font-bold mb-4">Ai đã xem hồ sơ của bạn</h3>
+                            <img src="/images/undraw.png" alt="illustration" className="mx-auto mb-4 h-32" />
+                            <p className="text-sm text-gray-500 mb-4">Chưa có nhà tuyển dụng nào xem hồ sơ của bạn</p>
+                            <button className="text-myjob-purple font-semibold text-sm">Xem chi tiết</button>
+                        </div>
+                    </div>
                 </div>
             ) : (
                 // --- GIAO DIỆN CHẾ ĐỘ CHỈNH SỬA (EDIT VIEW) ---
@@ -310,6 +377,7 @@ export default function JobSeekerProfile() {
                         <SectionCard id="general-info" title="Thông tin chung" onEdit={() => handleOpenModal('generalInfo', 'Chỉnh sửa thông tin chung', profile)}>
                             <div className="grid grid-cols-2 gap-4 text-sm"><InfoItem label="Vị trí mong muốn" value={profile.desired_position} /><InfoItem label="Địa điểm làm việc" value={profile.location?.name} /><InfoItem label="Cấp bậc mong muốn" value={profile.desired_level} /><InfoItem label="Mức lương mong muốn" value={(profile.min_salary && profile.max_salary) ? `${profile.min_salary.toLocaleString('vi-VN')} - ${profile.max_salary.toLocaleString('vi-VN')} VND` : 'Thương lượng'} /><InfoItem label="Trình độ học vấn" value={profile.education_level} /><InfoItem label="Nơi làm việc" value={profile.workplace_type} /><InfoItem label="Kinh nghiệm" value={profile.experience_years} /><InfoItem label="Hình thức làm việc" value={profile.employment_type} /><InfoItem label="Ngành nghề" value={profile.career?.name} /></div>
                         </SectionCard>
+                        {/* Các SectionCard còn lại giữ nguyên */}
                         <SectionCard id="work-experience" title="Kinh nghiệm làm việc" onAdd={() => handleOpenModal('workExperience', 'Thêm kinh nghiệm làm việc')}>
                             {profile.work_experiences?.length > 0 ? profile.work_experiences.map(exp => <TimelineItem key={exp.id} item={exp} type="experience" onEdit={(item) => handleOpenModal('workExperience', 'Chỉnh sửa kinh nghiệm', item)} onDelete={(id) => handleDelete('workExperience', id)} />) : <p className="text-gray-500">Chưa có kinh nghiệm làm việc.</p>}
                         </SectionCard>
@@ -334,6 +402,7 @@ export default function JobSeekerProfile() {
                 </div>
             )}
 
+            {/* PHẦN MODAL GIỮ NGUYÊN */}
             <Modal isOpen={modalState.isOpen} onClose={handleCloseModal} title={modalState.title}>
                 {modalState.type === 'personalInfo' && <ProfileUpdateForm initialData={{...profile.user, ...profile}} onSave={handleSave} isSubmitting={isSubmitting} />}
                 {modalState.type === 'generalInfo' && <GeneralInfoForm initialData={profile} onSave={handleSave} isSubmitting={isSubmitting} />}

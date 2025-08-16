@@ -92,7 +92,7 @@ class JobPostResponse(JobPostBase):
 class JobPostPublicList(BaseModel):
     id: int; title: str; position: str
     poster_name: Optional[str] = None; logo_url: Optional[str] = None
-    salary: Optional[str] = None; location: Optional[str] = None
+    salary: Optional[str] = None; location: Optional[Location] = None
     deadline: Optional[date] = None; is_hot: Optional[bool] = False
     location_id: Optional[int] = None; career_id: Optional[int] = None
     created_at: datetime; status: str
@@ -182,6 +182,34 @@ class JobSeekerProfileResponse(JobSeekerProfileBase):
 class PersonalInfoUpdate(BaseModel):
     name: str; phone_number: str; date_of_birth: date; gender: str
     marital_status: str; location_id: int; address: str
+
+# ==================================
+# SCHEMAS CHO TRANG "VIỆC LÀM CỦA TÔI"
+# ==================================
+class MyJobsLocation(BaseModel):
+    name: str
+    class Config: from_attributes = True
+
+class AppliedJobResponse(BaseModel):
+    job_id: int
+    title: str
+    company_name: str
+    logo_url: Optional[str] = None # Sẽ là filename
+    location: Optional[MyJobsLocation] = None
+    salary: Optional[str] = None
+    application_date: datetime
+    status: str
+    class Config: from_attributes = True
+
+class SavedJobResponse(BaseModel):
+    job_id: int
+    title: str
+    company_name: str
+    logo_url: Optional[str] = None # Sẽ là filename
+    location: Optional[MyJobsLocation] = None
+    salary: Optional[str] = None
+    saved_date: datetime
+    class Config: from_attributes = True
     
 # ==================================
 # XỬ LÝ FORWARD REFERENCES

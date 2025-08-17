@@ -1,0 +1,24 @@
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+# Giữ lại package-lock.json nếu team bạn cần đồng bộ phiên bản chính xác
+# package-lock.json
+
+# Nếu bạn có file chứa biến môi trường (API keys, passwords, etc.)
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+
+# IDE/Editor specific
+.vscode/
+.idea/

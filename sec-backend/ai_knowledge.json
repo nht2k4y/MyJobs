@@ -1,0 +1,95 @@
+{
+  "categories": [
+    {
+      "name": "Công nghệ thông tin",
+      "keywords": [
+        "công nghệ thông tin", "cntt", "it", "tin học", "máy tính",
+        "lập trình viên", "lập trình", "developer", "dev", "coder",
+        "frontend developer", "frontend", "fe",
+        "backend developer", "backend", "be",
+        "fullstack developer", "fullstack",
+        "devops", "system engineer",
+        "tester", "qa", "qc", "kiểm thử phần mềm",
+        "phân tích dữ liệu", "data analyst", "data scientist", "khoa học dữ liệu", "data",
+        "business analyst", "ba",
+        "product manager", "pm", "quản lý sản phẩm",
+        "mobile developer", "ios", "android"
+      ]
+    },
+    {
+      "name": "Marketing & Truyền thông",
+      "keywords": [
+        "marketing", "digital marketing", "tiếp thị số", "tiếp thị",
+        "content creator", "content", "sáng tạo nội dung",
+        "seo", "tối ưu hóa công cụ tìm kiếm",
+        "social media", "mạng xã hội",
+        "truyền thông", "quan hệ công chúng", "pr",
+        "chuyên viên digital ads", "ads", "quảng cáo", "chạy ads", "google ads", "facebook ads",
+        "brand manager", "quản lý thương hiệu"
+      ]
+    },
+    {
+      "name": "Kinh doanh & Bán hàng",
+      "keywords": [
+        "kinh doanh", "nhân viên kinh doanh", "phát triển kinh doanh",
+        "sales executive", "sales", "bán hàng", "chuyên viên bán hàng",
+        "account manager", "quản lý khách hàng",
+        "phát triển thị trường", "thị trường",
+        "telesales", "chăm sóc khách hàng", "cskh"
+      ]
+    },
+    {
+      "name": "Tài chính, Kế toán, Ngân hàng",
+      "keywords": [
+        "tài chính", "chuyên viên tài chính",
+        "kế toán", "nhân viên kế toán", "kế toán tổng hợp", "kế toán kho",
+        "kiểm toán", "auditor",
+        "ngân hàng", "giao dịch viên", "chuyên viên tín dụng"
+      ]
+    },
+    {
+      "name": "Hành chính & Nhân sự",
+      "keywords": [
+        "nhân sự", "chuyên viên nhân sự", "hr", "human resources",
+        "tuyển dụng", "chuyên viên tuyển dụng", "recruiter", "talent acquisition",
+        "hành chính", "admin", "thư ký", "trợ lý"
+      ]
+    },
+    {
+      "name": "Thiết kế & Sáng tạo",
+      "keywords": [
+        "thiết kế", "designer", "nhà thiết kế",
+        "thiết kế đồ họa", "graphic designer",
+        "ui/ux", "ui-ux", "user interface", "user experience",
+        "thiết kế 3d", "3d artist"
+      ]
+    },
+    {
+      "name": "Kỹ thuật, Cơ khí, Xây dựng",
+      "keywords": [
+        "kỹ thuật", "kỹ sư",
+        "cơ khí", "kỹ sư cơ khí",
+        "xây dựng", "kỹ sư xây dựng", "giám sát công trình",
+        "điện", "kỹ sư điện", "tự động hóa"
+      ]
+    },
+    {
+      "name": "Giáo dục & Đào tạo",
+      "keywords": [
+        "giáo dục", "đào tạo",
+        "giáo viên", "giảng viên",
+        "trợ giảng", "tutor",
+        "tư vấn tuyển sinh", "tuyển sinh"
+      ]
+    },
+    {
+      "name": "Y tế & Sức khỏe",
+      "keywords": [
+        "y tế", "sức khỏe",
+        "bác sĩ", "doctor",
+        "dược sĩ", "pharmacist",
+        "điều dưỡng", "y tá", "nurse"
+      ]
+    }
+  ]
+}
